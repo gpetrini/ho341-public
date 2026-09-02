@@ -2,6 +2,8 @@
 
 Material público da disciplina **HO341**, do Instituto de Economia da Unicamp.
 
+**Profa. Rosangela Ballini** e **Prof. Gabriel Petrini**
+
 ## Ementa
 
 Natureza e produção dos dados socioeconômicos brasileiros. Construção,
@@ -58,4 +60,5 @@ sincronização de cada vez. Nada é publicado automaticamente.
 
 Ainda não há material de aula publicado.
 
-Prof. Gabriel Petrini · Instituto de Economia · Unicamp
+Profa. Rosangela Ballini · Prof. Gabriel Petrini
+Instituto de Economia · Unicamp
