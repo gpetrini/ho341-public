@@ -1,0 +1,9 @@
+Esta pasta existe no material do aluno porque o slide "O projeto e as pastas"
+diz que o projeto tem data/, code/ e figs/ --- e porque o `ggsave` do frame
+"Salvar a figura" grava aqui.
+
+Sem ela, o script tangulado morre no `ggsave` num clone recem-feito, e leva
+junto tudo o que vem depois: a secao do SIDRA e o apendice inteiro. O erro nao
+aparece na maquina de quem escreveu o material, onde a pasta ja existe.
+
+O conteudo e derivado e nao e versionado (ver .gitignore). Este arquivo e.
