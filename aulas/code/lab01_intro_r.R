@@ -9,6 +9,17 @@
 # Antes da primeira vez: rode code/instalar_pacotes.R.
 # ---------------------------------------------------------------------------
 
+# Erro comum: rodar este script de dentro de code/ (por exemplo, abrindo esta
+# pasta no terminal antes de chamar o Rscript), e nao de aulas/, onde o projeto
+# tem raiz. Os caminhos abaixo sao relativos a aulas/, e a primeira leitura de
+# data/ falha com uma mensagem que nao diz por que. Corrige sozinho quando
+# reconhece essa estrutura, e avisa -- silencioso seria pior, porque esconderia
+# de onde os arquivos passaram a ser lidos.
+if (!dir.exists("data") && dir.exists("../data") && basename(getwd()) == "code") {
+  setwd("..")
+  message("Diretorio de trabalho ajustado para ", getwd(), ".")
+}
+
 # A seta guarda um resultado sob um nome.
 salario_minimo <- 1518
 
@@ -182,11 +193,6 @@ sexo |>
   summarise(mediana = median(renda_efetiva_principal),
             unidades = n())
 
-grafico <- ggplot(pnad, aes(x = regiao, y = renda_efetiva_principal)) +
-  geom_boxplot()
-
-ggsave("figs/box_regiao.pdf", grafico, width = 6, height = 4)
-
 library(sidrar)
 
 # O que a tabela contem, sem baixar os dados.
@@ -227,6 +233,11 @@ dplyr::filter(pnad, regiao == "Sul")   # nao ha ambiguidade possivel
 stats::filter                          # a outra funcao de mesmo nome
 
 readr::read_csv("data/pnadc_renda_uf.csv")
+
+grafico <- ggplot(pnad, aes(x = regiao, y = renda_efetiva_principal)) +
+  geom_boxplot()
+
+ggsave("figs/box_regiao.pdf", grafico, width = 6, height = 4)
 
 library(sf)
 

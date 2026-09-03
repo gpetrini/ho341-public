@@ -44,6 +44,14 @@
 ## numeros de trimestres antigos -- e isso nao e defeito. O trimestre de
 ## referencia e gravado em data/pnadc_extracao.csv junto da data da coleta.
 
+## Erro comum: rodar este script de dentro de code/, onde ele mora, e nao de
+## aulas/, onde os caminhos abaixo (data/...) resolvem. Mesma classe de falha
+## do script do aluno (code/lab01_intro_r.R), com o mesmo remedio.
+if (!dir.exists("data") && dir.exists("../data") && basename(getwd()) == "code") {
+  setwd("..")
+  message("Diretorio de trabalho ajustado para ", getwd(), ".")
+}
+
 library(sidrar)
 library(dplyr)
 library(tidyr)
