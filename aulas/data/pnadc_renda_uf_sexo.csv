@@ -1,0 +1,55 @@
+uf,sigla,regiao,uf_codigo,trimestre_codigo,sexo,renda_habitual_principal,renda_habitual_todos,renda_efetiva_principal,renda_efetiva_todos
+Rondônia,RO,Norte,11,202602,Homens,4157,4248,4175,4260
+Rondônia,RO,Norte,11,202602,Mulheres,3046,3105,3031,3088
+Acre,AC,Norte,12,202602,Homens,3096,3204,3073,3177
+Acre,AC,Norte,12,202602,Mulheres,2955,3068,2957,3062
+Amazonas,AM,Norte,13,202602,Homens,2841,2912,2826,2928
+Amazonas,AM,Norte,13,202602,Mulheres,2496,2557,2480,2541
+Roraima,RR,Norte,14,202602,Homens,3742,3875,3731,3860
+Roraima,RR,Norte,14,202602,Mulheres,2916,3144,2920,3146
+Pará,PA,Norte,15,202602,Homens,2583,2676,2575,2663
+Pará,PA,Norte,15,202602,Mulheres,2379,2456,2359,2433
+Amapá,AP,Norte,16,202602,Homens,3039,3105,3058,3124
+Amapá,AP,Norte,16,202602,Mulheres,3086,3175,3101,3191
+Tocantins,TO,Norte,17,202602,Homens,3674,3814,3705,3834
+Tocantins,TO,Norte,17,202602,Mulheres,2900,3054,2873,3025
+Maranhão,MA,Nordeste,21,202602,Homens,2297,2359,2268,2330
+Maranhão,MA,Nordeste,21,202602,Mulheres,2103,2175,2093,2164
+Piauí,PI,Nordeste,22,202602,Homens,2506,2638,2481,2610
+Piauí,PI,Nordeste,22,202602,Mulheres,2280,2417,2265,2397
+Ceará,CE,Nordeste,23,202602,Homens,2749,2832,2758,2829
+Ceará,CE,Nordeste,23,202602,Mulheres,2476,2578,2483,2587
+Rio Grande do Norte,RN,Nordeste,24,202602,Homens,2947,3055,2957,3053
+Rio Grande do Norte,RN,Nordeste,24,202602,Mulheres,2447,2593,2478,2625
+Paraíba,PB,Nordeste,25,202602,Homens,2803,2938,2821,2991
+Paraíba,PB,Nordeste,25,202602,Mulheres,2401,2586,2409,2596
+Pernambuco,PE,Nordeste,26,202602,Homens,2792,2904,2826,2937
+Pernambuco,PE,Nordeste,26,202602,Mulheres,2433,2580,2437,2584
+Alagoas,AL,Nordeste,27,202602,Homens,2621,2726,2621,2724
+Alagoas,AL,Nordeste,27,202602,Mulheres,2256,2376,2264,2382
+Sergipe,SE,Nordeste,28,202602,Homens,2987,3146,2987,3144
+Sergipe,SE,Nordeste,28,202602,Mulheres,2700,2903,2702,2898
+Bahia,BA,Nordeste,29,202602,Homens,2596,2692,2592,2680
+Bahia,BA,Nordeste,29,202602,Mulheres,2294,2384,2275,2364
+Minas Gerais,MG,Sudeste,31,202602,Homens,3697,3817,3738,3852
+Minas Gerais,MG,Sudeste,31,202602,Mulheres,2863,2987,2878,2997
+Espírito Santo,ES,Sudeste,32,202602,Homens,3901,4057,3898,4037
+Espírito Santo,ES,Sudeste,32,202602,Mulheres,2953,3052,2981,3081
+Rio de Janeiro,RJ,Sudeste,33,202602,Homens,4480,4664,4570,4737
+Rio de Janeiro,RJ,Sudeste,33,202602,Mulheres,3398,3521,3461,3582
+São Paulo,SP,Sudeste,35,202602,Homens,4827,4959,4908,5036
+São Paulo,SP,Sudeste,35,202602,Mulheres,3738,3821,3774,3857
+Paraná,PR,Sul,41,202602,Homens,4552,4684,4608,4728
+Paraná,PR,Sul,41,202602,Mulheres,3498,3607,3543,3648
+Santa Catarina,SC,Sul,42,202602,Homens,4815,4896,4849,4928
+Santa Catarina,SC,Sul,42,202602,Mulheres,3653,3713,3687,3744
+Rio Grande do Sul,RS,Sul,43,202602,Homens,4470,4654,4534,4689
+Rio Grande do Sul,RS,Sul,43,202602,Mulheres,3447,3576,3441,3570
+Mato Grosso do Sul,MS,Centro-Oeste,50,202602,Homens,4165,4271,4239,4339
+Mato Grosso do Sul,MS,Centro-Oeste,50,202602,Mulheres,3172,3285,3172,3285
+Mato Grosso,MT,Centro-Oeste,51,202602,Homens,4416,4590,4484,4655
+Mato Grosso,MT,Centro-Oeste,51,202602,Mulheres,3392,3490,3476,3569
+Goiás,GO,Centro-Oeste,52,202602,Homens,4351,4471,4400,4516
+Goiás,GO,Centro-Oeste,52,202602,Mulheres,3174,3252,3172,3249
+Distrito Federal,DF,Centro-Oeste,53,202602,Homens,6577,6796,6735,6968
+Distrito Federal,DF,Centro-Oeste,53,202602,Mulheres,5322,5421,5459,5557

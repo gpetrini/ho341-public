@@ -1,0 +1,422 @@
+codigo,quesito,tipo,unidade
+Ano,Ano de referência,NA,NA
+Trimestre,Trimestre de referência,1 a 4,Número do trimestre (1 a 4)
+UF,Unidade da Federação,11,Rondônia
+Capital,Município da Capital,11,Município de Porto Velho (RO)
+RM_RIDE,"Região Metropolitana e Região Administrativa Integrada
+de Desenvolvimento",13,Região Metropolitana de Manaus (AM)
+UPA,Unidade Primária de Amostragem (UPA),NA,UF (2) + Número Sequencial (6) + DV (1)
+Estrato,NA,NA,As 2 primeiras posições representam o código da Unidade da Federação
+V1008,Número de seleção do domicílio,01 a 14,Número do domicílio
+V1014,Painel,01 a 99,Grupo de amostra
+V1016,Número da entrevista no domicílio,1 a 5,Número da entrevista (1 a 5)
+V1022,Situação do domicílio,1,Urbana
+V1023,Tipo de área,1,Capital
+V1027,Peso do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista sem calibração pela projeção de população
+V1028,Peso do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1029,Projeção da população por níveis geográficos,NA,Projeção da população do trimestre por níveis geográficos (referência: mês do meio)
+V1033,Projeção da população por sexo e idade,NA,Projeção da população do trimestre por sexo e idade (referência: mês do meio)
+posest,Domínios de projeção geográficos,NA,"As 2 primeiras posições representam o código da Unidade da Federação e a última, o tipo de área. UF(2) + V1023(1)"
+posest_sxi,Domínios de projeção por sexo e idade,NA,A primeira posição representa o sexo (1- Homens; 2-Mulheres) e as 2 últimas representam os grupos etários. Sexo(1) + Idade(2)
+V2001,Número de pessoas no domicílio,01 a 30,NA
+V2003,Número de ordem,01 a 30,NA
+V2005,Condição no domicílio,01,Pessoa responsável pelo domicílio
+V2007,Sexo,1,Homem
+V2008,Dia de nascimento,01 a 31,Dia de nascimento
+V20081,Mês de nascimento,01 a 12,Mês
+V20082,Ano de nascimento,Ano de referência menos 130 até ano de referência,Ano
+V2009,Idade do morador na data de referência,0 a 130,Idade (em anos)
+V2010,Cor ou raça,1,Branca
+V3001,... sabe ler e escrever?,1,Sim
+V3002,... frequenta escola?,1,Sim
+V3002A,A escola que ... frequenta é de,1,Rede privada
+V3003,Qual é o curso que ... frequenta?,01,Pré-escolar (maternal e jardim de infância)
+V3003A,Qual é o curso que ... frequenta?,01,Creche (disponível apenas no questionário anual de educação)
+V3004,A duração deste curso que ... frequenta é de:,1,8 anos
+V3005,Este curso que ... frequenta é seriado?,1,Sim
+V3005A,Esse curso que .... frequenta é organizado em:,1,Períodos semestrais
+V3006,Qual é o ano/série/semestre que ... frequenta?,01,Primeira (o)
+V3006A,Qual é a etapa do ensino fundamental que ... frequenta?,1,Anos iniciais (primeiro segmento)
+V3007,... já concluiu algum outro curso de graduação?,1,Sim
+V3008,Anteriormente ... frequentou escola?,1,Sim
+V3009,Qual foi o curso mais elevado que ... frequentou anteriormente?,01,Classe de alfabetização - CA
+V3009A,Qual foi o curso mais elevado que ... frequentou anteriormente?,01,Creche (disponível apenas no questionário anual de educação)
+V3010,A duração deste curso que ... frequentou anteriormente era de:,1,8 anos
+V3011,Este curso que ... frequentou anteriormente era seriado?,1,Sim
+V3011A,Esse curso que .... frequentou era organizado em:,1,Períodos semestrais
+V3012,"... concluiu com aprovação, pelo menos a primeira série deste curso que frequentou anteriormente?",1,Concluiu
+V3013,"Qual foi o último ano/série/semestre que ... concluiu com aprovação, neste curso que frequentou anteriormente",01,Primeira (o)
+V3013A,Qual foi a etapa de ensino fundamental que ... frequentou?,1,Anos iniciais (primeiro segmento)
+V3013B,... Concluiu os anos iniciais deste curso que frequentou anteriormente?,1,Sim
+V3014,... concluiu este curso que frequentou anteriormente,1,Sim
+V4001,"Na semana de ... a ... (semana de referência), ... trabalhou ou estagiou, durante pelo menos 1 hora, em alguma atividade remunerada em dinheiro?",1,Sim
+V4002,"Na semana de ... a ... (semana de referência), ... trabalhou ou estagiou, durante pelo menos 1 hora, em alguma atividade remunerada em produtos, mercadorias, moradia, alimentação, etc.?",1,Sim
+V4003,"Na semana de ... a ... (semana de referência), ... fez algum bico ou trabalhou em alguma atividade ocasional remunerada durante pelo menos 1 hora?",1,Sim
+V4004,"Na semana de ... a ... (semana de referência), ... ajudou durante pelo menos 1 hora, sem receber pagamento, no trabalho remunerado de algum morador do domicílio ou de parente?",1,Sim
+V4005,"Na semana de ... a ... (semana de referência), ... tinha algum trabalho remunerado do qual estava temporariamente afastado?",1,Sim
+V4006,"Na semana de ... a .... (semana de referência), por que motivo ... estava afastado desse trabalho?",1,"Férias, folga ou jornada de trabalho variável"
+V4006A,"Na semana de ... a .... (semana de referência), por que motivo ... estava afastado desse trabalho?",1,"Férias, folga ou jornada de trabalho variável"
+V4007,"Durante o tempo de afastamento, ... continuou a receber ao menos uma parte do pagamento?",1,Sim
+V4008,"Em .../.../...(último dia da semana de referência), fazia quanto tempo que ... estava afastado desse trabalho?",1,Menos de 1 mês
+V40081,Tempo que estava afastado (De 1 mês a menos de 1 ano),01 a 11,01 a 11 meses
+V40082,Tempo que estava afastado (De 1 ano a menos de 2 anos),00 a 11,00 a 11 meses
+V40083,Tempo que estava afastado (de 02 anos a 98 anos),02 a 98,02 anos ou mais
+V4009,Quantos trabalhos ... tinha na semana de ... a ... (semana de referência ?,1,Um
+V4010,Código da ocupação (cargo ou função),código,"Ver  ""Composição dos Grupamentos Ocupacionais"" e ""Classificação de Ocupações para as Pesquisas Domiciliares – COD"" em ANEXO de Notas Metodológicas"
+V4012,"Nesse trabalho, ... era:",1,Trabalhador doméstico
+V40121,Trabalhador não remunerado,1,Em ajuda a conta própria ou empregador
+V4013,Código da principal atividade desse negócio/empresa,código,"Ver ""Composição dos Grupamentos de Atividade"" e “Relação de Códigos de Atividades” da CNAE-Domiciliar  em ANEXO de Notas Metodológicas"
+V40132,Qual a seção da atividade?,1,"Agricultura, pecuária silvicultura, exploração florestal, pesca ou aquicultura"
+V40132A,Qual a seção da atividade?,1,"Agricultura, pecuária silvicultura, exploração florestal, pesca ou aquicultura e atividades de apoio à agricultura, pecuária, silvicultura, exploração florestal, pesca ou aquicultura."
+V4014,Esse trabalho era na área:,1,Federal
+V4015,"Na semana de ... a ... (semana de referência), ... teve ajuda, nesse trabalho, de pelo menos um trabalhador não remunerado que era membro do domicílio ou parente?",1,Sim
+V40151,Quantos trabalhadores não remunerados ?,1,1 a 5 trabalhadores não remunerados
+V401511,1 a 5 trabalhadores não remunerados,1 a 5,1 a 5 trabalhadores não remunerados
+V401512,6 a 10 trabalhadores não remunerados,06 a 10,06 a 10 trabalhadores não remunerados
+V4016,"Na semana de ... a ... (semana de referência), quantos empregados trabalhavam nesse negócio/empresa que ... tinha ?",1,1 a 5 empregados
+V40161,1 a 5 empregados,1 a 5,1 a 5 empregados
+V40162,6 a 10 empregados,06 a 10,06 a 10 empregados
+V40163,11 a 50 empregados,11 a 50,11 a 50 empregados
+V4017,"Na semana de ... a ... (semana de  referência), ... tinha pelo menos um sócio que trabalhava nesse negócio/empresa ?",1,Sim
+V40171,Quantos?,1,1 a 5 sócios
+V401711,1 a 5 sócios,1 a 5,1 a 5 sócios
+V4018,"Na semana de ... a ... (semana de referência), contando com ... , quantas pessoas trabalhavam nesse negócio/empresa ?",1,1 a 5 pessoas
+V40181,1 a 5 pessoas,1 a 5,1 a 5 pessoas
+V40182,6 a 10 pessoas,06 a 10,06 a 10 pessoas
+V40183,11 a 50 pessoas,11 a 50,11 a 50 pessoas
+V4019,Esse negócio/empresa era registrado no Cadastro Nacional da Pessoa Jurídica - CNPJ?,1,Sim
+V4020,Em que tipo de local funcionava esse negócio/empresa ?,1,"Em loja, escritório, galpão, etc."
+V4021,... exercia normalmente o trabalho em estabelecimento desse negócio/empresa ?,1,Sim
+V4022,Então onde ... exercia normalmente esse trabalho ?,1,Em estabelecimento de outro négocio/empresa
+V4024,No período de ... a ... (período de referência de 30 dias) ... prestava serviço doméstico em mais de um domicílio ?,1,Sim
+V4025,"Nesse trabalho, ... era contratado(a) como empregado temporário ?",1,Sim
+V4026,"Na semana de ... a ... (semana de referência), ... era contratado(a) somente por pessoa responsável pelo negócio/empresa em que trabalhava ?",1,Sim
+V4027,"Na semana de ... a ... (semana de referência) era contratado(a) somente por intermediário (empresa empreiteira, empreiteiro, ""gato"", etc.) ?",1,Sim
+V4028,"Nesse trabalho, ... era servidor público estatutário (federal, estadual ou municipal) ?",1,Sim
+V4029,"Nesse trabalho, ... tinha carteira de trabalho assinada ?",1,Sim
+V4032,Era contribuinte de instituto de previdência por esse trabalho ?,1,Sim
+V4033,Qual era o rendimento bruto mensal que ... recebia/fazia  normalmente nesse trabalho? (variável auxiliar),1,Indica se o quesito foi respondido
+V40331,Recebia/fazia normalmente nesse trabalho rendimento/retirada em dinheiro?,1,Em dinheiro
+V403311,Número da faixa do rendimento/retirada em dinheiro,1,"1 a [0,5SM]"
+V403312,Qual era o rendimento bruto/retirada mensal que ... recebia/fazia normalmente nesse trabalho ? (valor em dinheiro),valor em reais,R$
+V40332,Recebia/fazia normalmente nesse trabalho rendimento/retirada em produtos e mercadorias ?,2,Em produtos ou mercadorias
+V403321,Número da faixa do rendimento/retirada em produtos e mercadorias,1,"1 a [0,5SM]"
+V403322,Qual era o rendimento bruto/retirada mensal que ... recebia/fazia normalmente nesse trabalho ? (valor estimado dos produtos ou mercadorias),valor em reais,R$
+V40333,Recebia/fazia normalmente nesse trabalho rendimento/retirada somente em benefícios ?,3,Em benefícios
+V403331,Tipo de rendimento/retirada  em benefícios que recebia/fazia nesse trabalho,1,"Pessoa recebendo somente em beneficios, exceto aprendizado"
+V4034,"Qual foi o rendimento bruto que ... recebeu/fez  nesse trabalho, no mês de referência? (variável auxiliar)",1,Indica se o quesito foi respondido
+V40341,Recebeu/fez nesse trabalho rendimento/retirada em dinheiro no mês de referência,1,Em dinheiro
+V403411,Número da faixa do rendimento/retirada em dinheiro,0,0
+V403412,"Qual foi o rendimento bruto/retirada que ... recebeu/fez nesse trabalho, no mês de referência ? (valor em dinheiro)",valor em reais,R$
+V40342,"Recebeu/fez nesse trabalho no mês de referencia, rendimento/retirada em produtos e mercadorias",2,Em produtos ou mercadorias
+V403421,Número da faixa do rendimento/retirada em produtos e mercadorias,0,0
+V403422,"Qual foi o rendimento bruto/retirada que ... recebeu/fez nesse trabalho, no mês de referência ? (valor estimado dos produtos ou mercadorias)",valor em reais,R$
+V4039,"Quantas horas ... trabalhava normalmente, por semana, nesse trabalho principal?",001 a 120,Horas
+V4039C,Quantas horas ... trabalhou efetivamente na semana de referência nesse trabalho principal?,000 a 120,Horas
+V4040,Até o dia ... (último dia da semana de referência) fazia quanto tempo que ... estava nesse trabalho ?,1,Menos de 1 mês
+V40401,Fazia quanto tempo que estava nesse trabalho (de 1 mês a menos de 1 ano),01 a 11,01 mês a 11 meses
+V40402,Fazia quanto tempo que estava nesse trabalho (de 1 ano a menos de 2 anos),00 a 11,00 a 11 meses
+V40403,Fazia quanto tempo estava nesse trabalho (2 anos ou mais),02 a 98,2 anos ou mais
+V4041,Código da ocupação (cargo ou função),código,"Ver ""Classificação nacional de ocupações para pesquisas domiciliares (COD) 2010"""
+V4043,"Nesse trabalho secundário, ... era",1,Trabalhador doméstico
+V40431,Trabalhador familiar não remunerado,1,Em ajuda a conta própria ou empregador
+V4044,Código da principal atividade desse negócio/empresa,código,"Ver ""Composição dos Grupamentos de Atividade"" e “Relação de Códigos de Atividades” da CNAE-Domiciliar"
+V4045,Esse trabalho era na área,1,Federal
+V4046,Esse negócio/empresa era registrado no Cadastro Nacional da Pessoa Jurídica - CNPJ?,1,Sim
+V4047,"Nesse trabalho secundário era funcionário público estatutário (federal, estadual ou municipal)?",1,Sim
+V4048,Nesse trabalho secundário tinha carteira de trabalho assinada?,1,Sim
+V4049,Era contribuinte de instituto de previdência por esse trabalho secundário?,1,Sim
+V4050,Qual era o rendimento bruto mensal que ... recebia/fazia  normalmente nesse trabalho secundário? (variável auxiliar),1,Indica se o quesito foi respondido
+V40501,Recebia/fazia normalmente nesse trabalho secundário rendimento/retirada em dinheiro,1,Em dinheiro
+V405011,Número da faixa do rendimento/retirada em dinheiro,1,"1 a [0,5SM]"
+V405012,Valor em dinheiro do rendimento mensal que recebia normalmente nesse trabalho secundário,valor em reais,R$
+V40502,Recebia/fazia normalmente nesse trabalho secundário rendimento/retirada em produtos e mercadorias,2,Em produtos ou mercadorias
+V405021,Número da faixa do rendimento/retirada em produtos e mercadorias,1,"1 a [0,5SM]"
+V405022,Valor estimado dos produtos e mercadorias que recebia normalmente nesse trabalho secundário,valor em reais,R$
+V40503,Recebia/fazia normalmente nesse trabalho secundário rendimento/retirada somente em benefícios,3,Em benefícios
+V405031,Tipo de rendimento/retirada  em benefícios que recebia/fazia nesse trabalho secundário,1,"Pessoa recebendo somente em beneficios, exceto aprendizado"
+V4051,"Qual foi o rendimento bruto que ... recebeu/fez  nesse trabalho secundário, no mês de referência? (variável auxiliar)",1,Indica se o quesito foi respondido
+V40511,Recebeu/fez nesse trabalho secundário rendimento/retirada em dinheiro no mês de referência,1,Em dinheiro
+V405111,Número da faixa do rendimento/retirada em dinheiro,0,0
+V405112,Valor em dinheiro do rendimento mensal que recebeu nesse trabalho secundário no mês de referência,valor em reais,R$
+V40512,"Recebeu/fez nesse trabalho secundário no mês de referencia, rendimento/retirada em produtos e mercadorias",2,Produtos ou mercadorias
+V405121,Número da faixa do rendimento/retirada em produtos e mercadorias,0,0
+V405122,Valor estimado dos produtos e mercadorias que recebia recebeu nesse trabalho secundário no mês de referência,valor em reais,R$
+V4056,"Quantas horas ... trabalhava normalmente, por semana, nesse trabalho secundário?",001 a 120,Horas
+V4056C,Quantas horas ... trabalhou efetivamente na semana de referência nesse trabalho secundário?,000 a 120,Horas
+V4057,Era contribuinte de instituto de previdência por esse(s) outro(s) trabalho(s)?,1,Sim
+V4058,Qual era o rendimento bruto mensal que ... recebia/fazia  normalmente nesse(s) outro(s) trabalho(s)? (variável auxiliar),1,Indica se o quesito foi respondido
+V40581,Recebia/fazia normalmente nesse(s) outro(s) trabalho(s)  rendimento/retirada em dinheiro,1,Em dinheiro
+V405811,Número da faixa do rendimento/retirada em dinheiro,1,"1 a [0,5SM]"
+V405812,Valor em dinheiro do rendimento mensal que recebia normalmente nesse(s) outro(s) trabalho(s),valor em reais,R$
+V40582,Recebia/fazia normalmente nesse(s) outro(s) trabalho(s)  rendimento/retirada em produtos e mercadorias,2,Em produtos ou mercadorias
+V405821,Número da faixa do rendimento/retirada em produtos e mercadorias,1,"1 a [0,5SM]"
+V405822,Valor estimado do produtos e mercadorias que recebia normalmente nesse(s) outro(s) trabalho(s),valor em reais,R$
+V40583,Recebia/fazia normalmente nesse(s) outro(s) trabalho(s) rendimento/retirada somente em benefícios,3,Em benefícios
+V405831,Tipo de rendimento/retirada  em benefícios que recebia/fazia nesse(s) outro(s) trabalho(s),1,"Pessoa recebendo somente em beneficios, exceto aprendizado"
+V40584,Não remunerado nesse(s) outro(s) trabalho(s),4,Não remunerado
+V4059,"Qual foi o rendimento bruto que ... recebeu/fez  nesse(s) outro(s) trabalho(s), no mês de referência? (variável auxiliar)",1,Indica se o quesito foi respondido
+V40591,Recebeu/fez nesse(s) outro(s) trabalho(s) rendimento/retirada em dinheiro no mês de referência,1,Em dinheiro
+V405911,Número da faixa do rendimento/retirada em dinheiro,0,0
+V405912,Valor em dinheiro do rendimento mensal que recebeu nesse(s) outro(s) trabalho(s) no mês de referência,valor em reais,R$
+V40592,"Recebeu/fez nesse(s) outro(s) trabalhos no mês de referencia, rendimento/retirada em produtos e mercadorias",2,Em produtos ou mercadorias
+V405921,Número da faixa do rendimento/retirada em produtos e mercadorias,0,0
+V405922,Valor estimado do produtos e mercadorias que recebia normalmente nesse(s) outro(s) trabalho(s) no mês de referência,valor em reais,R$
+V4062,"Quantas horas ... trabalhava normalmente, por semana, nesse(s) outro(s) trabalho(s)?",001 a 120,Horas
+V4062C,Quantas horas ... trabalhou efetivamente na semana de referência nesses outros trabalhos?,000 a 120,Horas
+V4063,"... gostaria de trabalhar mais horas do que as ... (soma das horas declaradas nas variáveis VD4031, VD4032, VD4033) horas que efetivamente trabalhou no(s) trabalho(s) que tinha na semana de referência?",1,Sim
+V4063A,"... gostaria de trabalhar mais horas do que as ... (soma das horas declaradas nos quesitos 39, 56 e 62) horas que normalmente trabalhava no(s) trabalho(s) que tinha na semana de referência?",1,Sim
+V4064,"No mês de referência, ... estaria disponível para trabalhar mais do que as (soma das horas declaradas nas variáveis VD4031, VD4032, VD4033) horas que efetivamente trabalhou no(s) trabalho(s) que tinha na semana de referência?",1,Sim
+V4064A,"No mês de referência, ... estaria disponível para trabalhar mais do que as (soma das horas declaradas nos quesitos 39, 56 e 62) horas que normalmente trabalhava  no(s) trabalho(s) que tinha na semana de referência?",1,Sim
+V4071,"No período de ... a ... (período de referência de 30 dias), ... Tomou alguma providência para conseguir trabalho, seja um emprego ou um negócio próprio?",1,Sim
+V4072,"No período de ... a ... (período de referência de 30 dias), qual foi a principal providência que ... tomou para conseguir trabalho?",01,"Entrou diretamente em contato com empregador (em fábrica, fazenda, mercado, loja ou outro local de trabalho)"
+V4072A,"No período de ... a ... (período de referência de 30 dias), qual foi a principal providência que ... tomou para conseguir trabalho?",1,"Entrou em contato com empregador (pessoalmente, por telefone, por email ou pelo portal da empresa, inclusive enviando currículo)"
+V4073,"Embora não tenha tomado providência para conseguir trabalho, gostaria de ter trabalhado na semana de ... a ... (semana de referência) ?",1,Sim
+V4074,Qual foi o principal motivo de ... não ter tomado providência para conseguir trabalho no período de  ... a ... (período de referência de 30 dias)?,1,Conseguiu proposta de trabalho para começar após a semana de referência
+V4074A,Qual foi o principal motivo de ... não ter tomado providência para conseguir trabalho no período de  ... a ... (período de referência de 30 dias)?,01,Conseguiu proposta de trabalho para começar após a semana de referência
+V4075A,Quanto tempo depois de ... (último dia da semana de referência) irá começar esse trabalho que conseguiu?,1,Menos de 1 mês
+V4075A1,Número de meses para começar o trabalho que conseguiu,01 a 11,01 a 11 meses
+V4076,"Até o dia ... (último dia da semana de referência), fazia quanto tempo que ... estava sem qualquer trabalho e tentando conseguir trabalho?",1,Menos de 1 mês
+V40761,fazia quanto tempo que vinha procurando trabalho (de 1 mês a menos de 1 ano),01 a 11,01 a 11 meses
+V40762,fazia quanto tempo que vinha procurando trabalho (de 1 ano a menos de 2 anos),01 a 11,01 a 11 meses
+V40763,fazia quanto tempo vinha procurando trabalho (2 anos ou mais),02 a 98,2 anos ou mais
+V4077,"Se tivesse conseguido um trabalho, ... poderia ter começado a trabalhar na semana de ... a ... (semana de referência)?",1,Sim
+V4078,Qual foi o principal motivo para ... não querer(poder começar a) trabalhar na semana de  ... a ... (semana de referência)?,1,"Tinha que cuidar de filho(s), de outro(s) dependente(s) ou dos afazeres domésticos"
+V4078A,Qual foi o principal motivo para ... não querer(poder começar a) trabalhar na semana de  ... a ... (semana de referência)?,1,"Tinha que cuidar dos afazeres domésticos, do(s) filho(s) ou de outro(s) parente(s)"
+V4082,"No período de captação de 358 dias, ... trabalhou por pelo menos 1 hora?",1,Sim
+VD2002,Condição no domicílio,1,Pessoa responsável
+VD2003,"Número de componentes do domicílio (exclusive as pessoas cuja condição no domicílio era pensionista, empregado doméstico ou parente do empregado doméstico)",01 a 30,Pessoa(s)
+VD2004,Espécie da unidade doméstica,1,Unipessoal
+VD2006,Faixas etárias utilizadas no processo de calibração,1,0 a 4 anos
+VD3004,Nível de instrução mais elevado alcançado (pessoas de 5 anos ou mais de idade) padronizado para o Ensino fundamental -  SISTEMA DE 9 ANOS,1,Sem instrução e menos de 1 ano de estudo
+VD3005,Anos de estudo (pessoas de 5 anos ou mais de idade) padronizado para o Ensino fundamental - SISTEMA DE 9 ANOS,0,Sem instrução e menos de 1 ano de estudo
+VD3006,Grupos de anos de estudo (pessoas de 5 anos ou mais de idade) padronizado para o Ensino fundamental  - SISTEMA DE 9 ANOS,1,Sem instrução e menos de 1 ano de estudo
+VD4001,Condição em relação à força de trabalho na semana de referência para pessoas de 14 anos ou mais de idade,1,Pessoas na força de trabalho
+VD4002,Condição de ocupação na semana de referência para pessoas de 14 anos ou mais de idade,1,Pessoas ocupadas
+VD4003,Força de trabalho potencial para pessoas de 14 anos ou mais de idade,1,Pessoas fora da força de trabalho e na força de trabalho potencial
+VD4004,Subocupação por insuficiência de horas efetivamente trabalhadas em todos os trabalhos,1,Pessoas subocupadas
+VD4004A,Subocupação por insuficiência de horas habitualmente trabalhadas em todos os trabalhos,1,Pessoas subocupadas
+VD4005,Pessoas desalentadas na semana de referência,1,Pessoas desalentadas
+VD4007,Posição na ocupação no trabalho principal da semana de referência para pessoas de 14 anos ou mais de idade,1,Empregado (inclusive trabalhador doméstico)
+VD4008,Posição na ocupação no trabalho principal da semana de referência para pessoas de 14 anos ou mais de idade (com subcategorias de empregados),1,Empregado no setor privado
+VD4009,Posição na ocupação e categoria do emprego do trabalho principal da semana de referência para pessoas de 14 anos ou mais de idade,1,Empregado no setor privado com carteira de trabalho assinada
+VD4010,Grupamentos de atividade principal do empreendimento do trabalho principal da semana de referência para pessoas de 14 anos ou mais de idade,1,"Agricultura, pecuária, produção florestal, pesca e aquicultura"
+VD4011,Grupamentos ocupacionais do trabalho principal da semana de referência para pessoas de 14 anos ou mais de idade,1,Diretores e gerentes
+VD4012,Contribuição para instituto de previdência em qualquer trabalho da semana de referência para pessoas de 14 anos ou mais de idade,1,Contribuinte
+VD4013,Faixa das horas habitualmente trabalhadas por semana em todos os trabalhos para pessoas de 14 anos ou mais de idade,1,Até 14 horas
+VD4014,Faixa das horas efetivamente trabalhadas na semana de referência em todos os trabalhos  para pessoas de 14 anos ou mais de idade,1,Até 14 horas
+VD4015,Tipo de remuneração habitualmente recebida no trabalho principal para pessoas de 14 anos ou mais de idade,1,"Remuneração em dinheiro, produtos ou mercadorias no trabalho principal"
+VD4016,"Rendimento mensal habitual do trabalho principal para pessoas de 14 anos ou mais de idade (apenas para pessoas que receberam em dinheiro, produtos ou mercadorias no trabalho principal)",Valor,R$
+VD4017,"Rendimento mensal efetivo do trabalho principal para pessoas de 14 anos ou mais de idade (apenas para pessoas que receberam em dinheiro, produtos ou mercadorias no trabalho principal)",Valor,R$
+VD4018,Tipo de remuneração habitualmente recebida em todos os trabalhos para pessoas de 14 anos ou mais de idade,1,"Remuneração em dinheiro, produtos ou mercadorias em pelo menos um dos trabalhos"
+VD4019,"Rendimento mensal habitual de todos os trabalhos para pessoas de 14 anos ou mais de idade (apenas para pessoas que receberam em dinheiro, produtos ou mercadorias em qualquer trabalho)",Valor,R$
+VD4020,"Rendimento mensal efetivo de todos os trabalhos para pessoas de 14 anos ou mais de idade (apenas para pessoas que receberam em dinheiro, produtos ou mercadorias em qualquer trabalho)",Valor,R$
+VD4023,Motivo pelo qual não procurou trabalho ou não gostaria de ter trabalhado ou não estava disponível para iniciar um trabalho,1,"Tinha que cuidar dos afazeres domésticos, do(s) filho(s) ou de outro(s) dependente(s)"
+VD4030,Motivo pelo qual não procurou trabalho ou não gostaria de ter trabalhado ou não estava disponível para iniciar um trabalho,1,"Tinha que cuidar dos afazeres domésticos, do(s) filho(s) ou de outro(s) parente(s)"
+VD4031,Horas habitualmente trabalhadas por semana em todos os trabalhos para pessoas de 14 anos ou mais de idade,1 a 120,NA
+VD4032,Horas efetivamente trabalhadas na semana de referência no trabalho principal para pessoas de 14 anos ou mais de idade,0 a 120,NA
+VD4033,Horas efetivamente trabalhadas na semana de referência no trabalho secundário para pessoas de 14 anos ou mais de idade,0 a 120,NA
+VD4034,Horas efetivamente trabalhadas na semana de referência nos outros trabalhos para pessoas de 14 anos ou mais de idade,0 a 120,NA
+VD4035,Horas efetivamente trabalhadas na semana de referência em todos os trabalhos para pessoas de 14 anos ou mais de idade,0 a 120,NA
+VD4036,Faixa das horas habitualmente trabalhadas por semana no trabalho principal para pessoas de 14 anos ou mais de idade,1,Até 14 horas
+VD4037,Faixa das horas efetivamente trabalhadas na semana de referência no trabalho principal  para pessoas de 14 anos ou mais de idade,1,Até 14 horas
+V1028001,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028002,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028003,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028004,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028005,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028006,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028007,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028008,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028009,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028010,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028011,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028012,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028013,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028014,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028015,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028016,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028017,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028018,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028019,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028020,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028021,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028022,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028023,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028024,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028025,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028026,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028027,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028028,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028029,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028030,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028031,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028032,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028033,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028034,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028035,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028036,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028037,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028038,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028039,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028040,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028041,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028042,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028043,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028044,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028045,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028046,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028047,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028048,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028049,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028050,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028051,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028052,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028053,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028054,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028055,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028056,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028057,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028058,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028059,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028060,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028061,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028062,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028063,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028064,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028065,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028066,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028067,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028068,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028069,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028070,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028071,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028072,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028073,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028074,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028075,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028076,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028077,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028078,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028079,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028080,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028081,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028082,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028083,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028084,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028085,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028086,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028087,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028088,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028089,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028090,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028091,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028092,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028093,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028094,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028095,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028096,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028097,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028098,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028099,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028100,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028101,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028102,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028103,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028104,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028105,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028106,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028107,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028108,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028109,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028110,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028111,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028112,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028113,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028114,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028115,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028116,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028117,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028118,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028119,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028120,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028121,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028122,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028123,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028124,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028125,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028126,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028127,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028128,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028129,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028130,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028131,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028132,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028133,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028134,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028135,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028136,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028137,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028138,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028139,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028140,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028141,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028142,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028143,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028144,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028145,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028146,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028147,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028148,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028149,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028150,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028151,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028152,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028153,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028154,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028155,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028156,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028157,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028158,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028159,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028160,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028161,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028162,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028163,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028164,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028165,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028166,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028167,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028168,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028169,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028170,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028171,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028172,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028173,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028174,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028175,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028176,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028177,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028178,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028179,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028180,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028181,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028182,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028183,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028184,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028185,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028186,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028187,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028188,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028189,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028190,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028191,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028192,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028193,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028194,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028195,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028196,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028197,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028198,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028199,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
+V1028200,Peso replicado do domicílio e das pessoas,6 dígitos e 8 casas decimais,Peso trimestral com correção de não entrevista com calibração pela projeção de população
