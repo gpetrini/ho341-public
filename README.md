@@ -54,11 +54,18 @@ Ao final da disciplina, espera-se que o aluno seja capaz de:
 
 ---
 
+## Material publicado
+
+**[`aulas/`](aulas/) — Lab-01, laboratório de dados no R** (item 2 do programa).
+Dados da PNAD Contínua extraídos do SIDRA, o script da aula e a lista de
+pacotes. Comece por **[`aulas/LEIAME.md`](aulas/LEIAME.md)**: ele diz como abrir
+o projeto, instalar os pacotes e rodar o script.
+
+---
+
 Este repositório é um **espelho**: o conteúdo é gerado a partir do repositório
 privado da disciplina e publicado aqui por decisão explícita do professor, uma
 sincronização de cada vez. Nada é publicado automaticamente.
-
-Ainda não há material de aula publicado.
 
 Profa. Rosangela Ballini · Prof. Gabriel Petrini
 Instituto de Economia · Unicamp
