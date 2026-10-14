@@ -9,7 +9,7 @@
 ##
 ## A coleta e feita PELO PACOTE `sidrar`, e nao por download manual do CSV do
 ## site: e o mesmo caminho que os alunos percorrem na segunda metade da aula, de
-## modo que o script do professor e o script do aluno sejam o mesmo objeto.
+## modo que o script de coleta e o script do aluno sejam o mesmo objeto.
 ##
 ## FONTES
 ##
@@ -30,7 +30,7 @@
 ##
 ##   - 27 linhas na base de corte transversal. E pequena o bastante para ser
 ##     impressa inteira num slide e grande o bastante para ter mediana, quartis
-##     e caudas -- as metricas da Aula 2 da Profa. Ballini.
+##     e caudas -- as metricas da aula de estatistica descritiva.
 ##   - Rendimento habitual e efetivo lado a lado, na mesma linha. A diferenca
 ##     entre os dois e o exemplo de que uma variavel nao e definida pelo nome.
 ##   - Populacao ocupada junto do rendimento medio. Sem ela nao se pode contrapor
@@ -260,7 +260,7 @@ message("Gravados: data/pnadc_renda_uf.csv, data/pnadc_renda_uf_sexo.csv, ",
 ##
 ## O que isso substitui: ate 2026-09-02 estes conceitos entravam no deck por um
 ## exemplo sintetico de vinte pessoas, transcrito dos slides da Aula 3. O
-## exemplo saiu (decisao do professor): um dado inventado nao tem dicionario,
+## exemplo saiu: um dado inventado nao tem dicionario,
 ## nao tem universo e nao tem periodo de referencia, que e justamente o que esta
 ## aula ensina a ler.
 ##
