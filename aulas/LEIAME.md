@@ -4,6 +4,28 @@ Material do laboratório da HO341. Tudo o que a aula usa está aqui.
 
 ## Como começar
 
+0. **Baixe o material** pelo console do RStudio:
+
+   ```r
+   install.packages("usethis")   # uma vez
+   usethis::use_course("gpetrini/ho341-public")
+   ```
+
+   Cada execução baixa uma pasta nova na Área de Trabalho,
+   `gpetrini-ho341-public-<código>`, em que o código identifica a versão do
+   material; nada do que já está no computador é substituído. A pasta mais
+   recente é a da aula, e o que você editou fica na anterior.
+
+   O R faz até três perguntas, com as opções numeradas em ordem sorteada:
+   - *OK to proceed?*: escolha uma afirmativa (*Yes*, *Yeah*, *Absolutely*...);
+   - *Shall we delete the ZIP file?*: escolha uma negativa (*No*, *Nope*,
+     *Not now*...); o ZIP guardado faz o R perguntar antes de baixar a mesma
+     versão outra vez;
+   - *Overwrite pre-existing file?*: escolha uma negativa; essa versão já está
+     no computador.
+
+   O RStudio abre a pasta baixada; abra então `aulas/HO341.Rproj`.
+
 1. **Abra o projeto**, e não os arquivos soltos: duplo clique em `HO341.Rproj`.
    É isso que faz `read_csv("data/pnadc_renda_uf.csv")` funcionar sem ajustar
    caminho nenhum, em Windows, macOS ou Linux.

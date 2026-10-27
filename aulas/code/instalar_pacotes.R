@@ -10,7 +10,14 @@ pacotes <- c(
   "datawizard",  # resumo das colunas (aula de limpeza)
   "bayestestR",  # exigido por describe_distribution() (aula de limpeza)
   "FactoMineR",  # analise de correspondencia
-  "vcd"          # associacao em tabelas de contingencia
+  "vcd",         # associacao em tabelas de contingencia
+  "psych",       # KMO, analise fatorial e alfa de Cronbach
+  "GPArotation", # rotacoes obliquas do psych (promax)
+  "skimr",       # resumo das colunas com mini-histograma (componentes e fatores)
+  "naniar",      # graficos de ausentes (componentes e fatores)
+  "ggridges",    # densidades empilhadas (componentes e fatores)
+  "corrplot",    # mapa de correlacoes (componentes e fatores)
+  "jsonlite"     # API de localidades do IBGE, usada pelo coletor municipal
 )
 
 faltantes <- setdiff(pacotes, rownames(installed.packages()))
