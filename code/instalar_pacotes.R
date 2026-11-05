@@ -19,6 +19,7 @@ pacotes <- c(
   "corrplot",    # mapa de correlacoes (componentes e fatores)
   "jsonlite",    # API de localidades do IBGE, usada pelo coletor municipal
   "cluster",     # silhueta (agrupamento e classificacao)
+  "class",       # k vizinhos mais proximos (agrupamento e classificacao)
   "MASS"         # analise discriminante (agrupamento e classificacao)
 )
 

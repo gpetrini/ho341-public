@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
 # HO-341 - Metodos Quantitativos Aplicados a Economia
-# Analise multivariada - Analise de agrupamentos no R
+# Analise multivariada - Agrupamento e classificacao no R
 # Estrutura demografica das Unidades da Federacao e das regioes intermediarias
 # (Censo 2022)
 #
@@ -247,6 +247,100 @@ rgi_por_uf <- rgi |>
   left_join(uf |> select(sigla, grupo_uf = grupo),
             by = c("uf" = "sigla")) |>
   count(grupo_uf, grupo)   # regioes por combinacao
+
+# ---- Rotulo de baixo rendimento --------------------------------------------
+
+rgi <- rgi |>
+  mutate(baixo = if_else(log_renda <= quantile(log_renda, 1/3),
+                         "baixo", "outro"),
+         baixo = factor(baixo, levels = c("baixo", "outro")))
+
+count(rgi, baixo)
+
+# ---- Treino e teste --------------------------------------------------------
+
+set.seed(2026)
+ufs_teste <- sample(unique(rgi$uf), 7)
+treino <- rgi |> filter(!uf %in% ufs_teste)
+teste <- rgi |> filter(uf %in% ufs_teste)
+
+z_treino <- scale(treino[, ativas])
+z_teste <- scale(teste[, ativas],
+                 center = attr(z_treino, "scaled:center"),
+                 scale = attr(z_treino, "scaled:scale"))
+
+# ---- Numero de vizinhos ----------------------------------------------------
+
+vizinhos <- seq(1, 15, by = 2)
+
+set.seed(2026)
+acerto_cv <- map_dbl(vizinhos, \(k)
+  mean(class::knn.cv(z_treino, treino$baixo, k = k)
+       == treino$baixo))
+
+k_viz <- vizinhos[which.max(acerto_cv)]
+
+# ---- Matriz de confusao ----------------------------------------------------
+
+set.seed(2026)
+previsto <- class::knn(z_treino, z_teste, treino$baixo, k = k_viz)
+
+confusao <- table(real = teste$baixo, previsto = previsto)
+
+confusao
+
+# ---- Acerto, sensibilidade e especificidade --------------------------------
+
+medidas <- function(previsto, real) {
+  tibble(acerto = mean(previsto == real),
+         sensibilidade = mean(previsto[real == "baixo"] == "baixo"),
+         especificidade = mean(previsto[real == "outro"] == "outro"))
+}
+med_knn <- medidas(previsto, teste$baixo)
+
+# ---- Criterios de chance ---------------------------------------------------
+
+p_baixo <- mean(teste$baixo == "baixo")
+c_max <- max(p_baixo, 1 - p_baixo)
+c_pro <- p_baixo^2 + (1 - p_baixo)^2
+
+# ---- Regras mais simples ---------------------------------------------------
+
+set.seed(2026)
+uma_var <- map_dfr(ativas, \(v) {
+  z_tr <- scale(treino[v])
+  z_te <- scale(teste[v], center = attr(z_tr, "scaled:center"),
+                scale = attr(z_tr, "scaled:scale"))
+  medidas(class::knn(z_tr, z_te, treino$baixo, k = k_viz), teste$baixo) |>
+    mutate(variavel = v)
+})
+
+so_regiao <- if_else(teste$regiao %in% c("Norte", "Nordeste"),
+                     "baixo", "outro")
+med_regiao <- medidas(so_regiao, teste$baixo)
+
+# ---- Rotulos embaralhados --------------------------------------------------
+
+set.seed(2026)
+acerto_emb <- replicate(200, {
+  y <- sample(treino$baixo)
+  mean(class::knn(z_treino, z_teste, y, k = k_viz)
+       == teste$baixo)
+})
+
+summary(acerto_emb)
+
+# ---- Grande regiao fora do treino ------------------------------------------
+
+fora <- map_dfr(unique(rgi$regiao), \(g) {
+  a <- rgi |> filter(regiao != g)
+  b <- rgi |> filter(regiao == g)
+  z_a <- scale(a[, ativas])
+  z_b <- scale(b[, ativas], center = attr(z_a, "scaled:center"),
+               scale = attr(z_a, "scaled:scale"))
+  medidas(class::knn(z_a, z_b, a$baixo, k = k_viz), b$baixo) |>
+    mutate(regiao = g, n_regioes = nrow(b), baixas = sum(b$baixo == "baixo"))
+})
 
 # ---- Atividade em sala -----------------------------------------------------
 
