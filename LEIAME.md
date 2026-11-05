@@ -24,9 +24,10 @@ Material do laboratório da HO341. Tudo o que a aula usa está aqui.
    - *Overwrite pre-existing file?*: escolha uma negativa; essa versão já está
      no computador.
 
-   O RStudio abre a pasta baixada; abra então `aulas/HO341.Rproj`.
+   O RStudio abre a pasta baixada já como o projeto `HO341`.
 
-1. **Abra o projeto**, e não os arquivos soltos: duplo clique em `HO341.Rproj`.
+1. **Trabalhe dentro do projeto**, e não com arquivos soltos: se o RStudio não
+   o abriu, dê duplo clique em `HO341.Rproj`, na raiz da pasta baixada.
    É isso que faz `read_csv("data/pnadc_renda_uf.csv")` funcionar sem ajustar
    caminho nenhum, em Windows, macOS ou Linux.
 

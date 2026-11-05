@@ -17,7 +17,9 @@ pacotes <- c(
   "naniar",      # graficos de ausentes (componentes e fatores)
   "ggridges",    # densidades empilhadas (componentes e fatores)
   "corrplot",    # mapa de correlacoes (componentes e fatores)
-  "jsonlite"     # API de localidades do IBGE, usada pelo coletor municipal
+  "jsonlite",    # API de localidades do IBGE, usada pelo coletor municipal
+  "cluster",     # silhueta (agrupamento e classificacao)
+  "MASS"         # analise discriminante (agrupamento e classificacao)
 )
 
 faltantes <- setdiff(pacotes, rownames(installed.packages()))
