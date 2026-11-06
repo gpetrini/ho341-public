@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
 # HO-341 - Metodos Quantitativos Aplicados a Economia
-# Analise multivariada - Agrupamento e classificacao no R
+# Analise multivariada - Agrupamento no R, com a classificacao ao final
 # Estrutura demografica das Unidades da Federacao e das regioes intermediarias
 # (Censo 2022)
 #
@@ -33,35 +33,41 @@ theme_set(theme_minimal(base_size = 9))
 
 uf <- read_csv("data/censo_demografia_uf.csv")
 
-# ---- Variaveis ativas e ilustrativa ---------------------------------------
+# ---- Variaveis de agrupamento e de perfil ---------------------------------
 
 # Decididas antes de rodar: o que define "parecido"
-ativas <- c("envelh", "depend", "urbana",
+var_grupo <- c("envelh", "depend", "urbana",
             "log_dens", "pretos_pardos", "alfab")
 
 # Fica de fora, para conferir os grupos depois
-ilustrativa <- "log_renda"
+var_perfil <- "log_renda"
 
 # ---- Distancia sem padronizar ---------------------------------------------
 
 dispersao <- uf |>
-  summarise(across(all_of(ativas), sd))
+  summarise(across(all_of(var_grupo), sd))
 
 dispersao
 
 # ---- Padronizacao ----------------------------------------------------------
 
 z_uf <- uf |>
-  select(all_of(ativas)) |>
+  select(all_of(var_grupo)) |>
   scale()
 
 rownames(z_uf) <- uf$sigla
 
-# ---- Correlacao entre as ativas -------------------------------------------
+# ---- Correlacao entre as variaveis de agrupamento --------------------------
 
 r_uf <- cor(z_uf)
 
 round(r_uf, 2)
+
+# ---- Correlacoes ordenadas por agrupamento das variaveis -------------------
+
+corrplot::corrplot(r_uf, order = "hclust",
+                   hclust.method = "average",
+                   addrect = 3, addCoef.col = "black")
 
 # ---- Ligacao media nas UFs -------------------------------------------------
 
@@ -119,6 +125,13 @@ comparacao <- table(ward = grupo_ward,
 
 comparacao
 
+# ---- Dois metodos, particoes proximas --------------------------------------
+
+# Unidades fora do grupo dominante da sua linha na tabela cruzada
+muda_grupo <- function(a, b) {
+  length(a) - sum(apply(table(a, b), 1, max))
+}
+
 # ---- Sementes do Ward no k-medias ------------------------------------------
 
 sementes <- aggregate(z_uf, by = list(grupo_ward), FUN = mean)[, -1]
@@ -129,18 +142,46 @@ km_sem$iter
 km_sem$tot.withinss
 table(sementes = km_sem$cluster, inicios = km_uf$cluster)
 
+# ---- Variaveis acrescentadas a lista ---------------------------------------
+
+mudam_com <- function(z_mais) {
+  km <- kmeans(z_mais, centers = 3, nstart = 50)
+  muda_grupo(km_uf$cluster, km$cluster)
+}
+
+# Variaveis de ruido, sem relacao com a pergunta
+set.seed(2026)
+mudam_ruido <- map_dbl(c(2, 6, 12), \(m) mean(replicate(30,
+  mudam_com(cbind(z_uf, matrix(rnorm(nrow(z_uf) * m), ncol = m))))))
+
+# Cada variavel contada tres vezes
+set.seed(2026)
+mudam_tripla <- map_dbl(var_grupo, \(v)
+  mudam_com(cbind(z_uf, z_uf[, v], z_uf[, v])))
+
+# ---- Agrupamento sem estrutura ---------------------------------------------
+
+r2_km <- function(z) {
+  km <- kmeans(z, centers = 3, nstart = 50)
+  km$betweenss / km$totss
+}
+
+# Embaralhar cada coluna desfaz a relacao entre as variaveis
+set.seed(2026)
+r2_emb <- replicate(50, r2_km(apply(z_uf, 2, sample)))
+
 # ---- Centroides padronizados -----------------------------------------------
 
 round(km_uf$centers, 2)
 
-# ---- Perfis em unidades originais ------------------------------------------
+# ---- Centroides em unidades originais --------------------------------------
 
 uf <- uf |>
   mutate(grupo = factor(paste0("U", km_uf$cluster)))
 
-perfil_uf <- uf |>
+medias_uf <- uf |>
   group_by(grupo) |>
-  summarise(across(all_of(ativas), mean), ufs = n())
+  summarise(across(all_of(var_grupo), mean), ufs = n())
 
 # ---- Conferencia com o rendimento ------------------------------------------
 
@@ -151,6 +192,14 @@ graf_renda_uf <- uf |>
        y = "Rendimento mediano per capita (R$)")
 
 graf_renda_uf
+
+# ---- Validacao externa -----------------------------------------------------
+
+r2_renda <- function(g) summary(lm(uf$log_renda ~ factor(g)))$r.squared
+
+set.seed(2026)
+r2_renda_emb <- replicate(200,
+  r2_renda(kmeans(apply(z_uf, 2, sample), centers = 3, nstart = 10)$cluster))
 
 # ---- Mapa dos grupos de UFs ------------------------------------------------
 
@@ -176,7 +225,7 @@ rgi <- read_csv("data/censo_demografia_rgi.csv")
 # ---- Ward nas regioes intermediarias ---------------------------------------
 
 z_rgi <- rgi |>
-  select(all_of(ativas)) |>
+  select(all_of(var_grupo)) |>
   scale()
 
 d_rgi <- dist(z_rgi)
@@ -210,11 +259,11 @@ table(ward = cutree(hc_rgi, k = 5),
 
 round(km_rgi$centers, 2)
 
-# ---- Perfis dos grupos de regioes ------------------------------------------
+# ---- Centroides de regioes em unidades originais ---------------------------
 
-perfil_rgi <- rgi |>
+medias_rgi <- rgi |>
   group_by(grupo) |>
-  summarise(across(all_of(ativas), mean), regioes = n())
+  summarise(across(all_of(var_grupo), mean), regioes = n())
 
 # ---- Mapa dos grupos de regioes --------------------------------------------
 
@@ -241,12 +290,45 @@ rgi_regiao <- table(rgi$regiao, rgi$grupo)
 
 rgi_regiao
 
+# ---- Validacao por metades -------------------------------------------------
+
+concorda_metades <- function(z) {
+  a <- sample(nrow(z), nrow(z) %/% 2)
+  km_a <- kmeans(z[a, ], centers = 5, nstart = 20)
+  km_b <- kmeans(z[-a, ], centers = 5, nstart = 20)
+  # Cada regiao de B vai ao centroide mais proximo de A
+  d_ab <- as.matrix(dist(rbind(km_a$centers, z[-a, ])))[-(1:5), 1:5]
+  100 * (1 - muda_grupo(km_b$cluster, max.col(-d_ab)) / nrow(d_ab))
+}
+
+set.seed(2026)
+val_real <- replicate(100, concorda_metades(z_rgi))
+val_emb <- replicate(100, concorda_metades(apply(z_rgi, 2, sample)))
+
 # ---- Das UFs as regioes intermediarias -------------------------------------
 
 rgi_por_uf <- rgi |>
   left_join(uf |> select(sigla, grupo_uf = grupo),
             by = c("uf" = "sigla")) |>
   count(grupo_uf, grupo)   # regioes por combinacao
+
+# ---- Atividade em sala -----------------------------------------------------
+
+# 1. Quatro grupos de UFs
+# set.seed(2026)
+# km_uf4 <- kmeans(z_uf, centers = ___, nstart = 50)
+# table(tres = uf$grupo, quatro = km_uf4$cluster)
+# 2. O rendimento entre as variaveis de agrupamento das regioes
+# z_rgi_r <- scale(rgi[, c(var_grupo, "___")])
+# set.seed(2026)
+# km_rgi_r <- kmeans(z_rgi_r, centers = 5, nstart = 50)
+# table(sem = rgi$grupo, com = km_rgi_r$cluster)
+# 3. So o Nordeste
+# ne <- rgi |> filter(regiao == "___")
+# z_ne <- scale(ne[, var_grupo])
+# set.seed(2026)
+# km_ne <- kmeans(z_ne, centers = 3, nstart = 50)
+# table(nacional = ne$grupo, nordeste = km_ne$cluster)
 
 # ---- Rotulo de baixo rendimento --------------------------------------------
 
@@ -264,8 +346,8 @@ ufs_teste <- sample(unique(rgi$uf), 7)
 treino <- rgi |> filter(!uf %in% ufs_teste)
 teste <- rgi |> filter(uf %in% ufs_teste)
 
-z_treino <- scale(treino[, ativas])
-z_teste <- scale(teste[, ativas],
+z_treino <- scale(treino[, var_grupo])
+z_teste <- scale(teste[, var_grupo],
                  center = attr(z_treino, "scaled:center"),
                  scale = attr(z_treino, "scaled:scale"))
 
@@ -307,7 +389,7 @@ c_pro <- p_baixo^2 + (1 - p_baixo)^2
 # ---- Regras mais simples ---------------------------------------------------
 
 set.seed(2026)
-uma_var <- map_dfr(ativas, \(v) {
+uma_var <- map_dfr(var_grupo, \(v) {
   z_tr <- scale(treino[v])
   z_te <- scale(teste[v], center = attr(z_tr, "scaled:center"),
                 scale = attr(z_tr, "scaled:scale"))
@@ -335,30 +417,12 @@ summary(acerto_emb)
 fora <- map_dfr(unique(rgi$regiao), \(g) {
   a <- rgi |> filter(regiao != g)
   b <- rgi |> filter(regiao == g)
-  z_a <- scale(a[, ativas])
-  z_b <- scale(b[, ativas], center = attr(z_a, "scaled:center"),
+  z_a <- scale(a[, var_grupo])
+  z_b <- scale(b[, var_grupo], center = attr(z_a, "scaled:center"),
                scale = attr(z_a, "scaled:scale"))
   medidas(class::knn(z_a, z_b, a$baixo, k = k_viz), b$baixo) |>
     mutate(regiao = g, n_regioes = nrow(b), baixas = sum(b$baixo == "baixo"))
 })
-
-# ---- Atividade em sala -----------------------------------------------------
-
-# 1. Quatro grupos de UFs
-# set.seed(2026)
-# km_uf4 <- kmeans(z_uf, centers = ___, nstart = 50)
-# table(tres = uf$grupo, quatro = km_uf4$cluster)
-# 2. O rendimento entre as ativas das regioes
-# z_rgi_r <- scale(rgi[, c(ativas, "___")])
-# set.seed(2026)
-# km_rgi_r <- kmeans(z_rgi_r, centers = 5, nstart = 50)
-# table(sem = rgi$grupo, com = km_rgi_r$cluster)
-# 3. So o Nordeste
-# ne <- rgi |> filter(regiao == "___")
-# z_ne <- scale(ne[, ativas])
-# set.seed(2026)
-# km_ne <- kmeans(z_ne, centers = 3, nstart = 50)
-# table(nacional = ne$grupo, nordeste = km_ne$cluster)
 
 # ---- Silhueta media por numero de grupos -----------------------------------
 
@@ -376,7 +440,7 @@ sil_rgi <- map_dbl(2:6, \(k) {
 # ---- Os tres passos no R (municipios) --------------------------------------
 
 mun <- read_csv("data/censo_demografia_mun.csv")
-z_mun <- scale(mun[, ativas])
+z_mun <- scale(mun[, var_grupo])
 set.seed(2026)
 pre <- kmeans(z_mun, centers = 100, nstart = 10, iter.max = 50)
 hc_mun <- hclust(dist(pre$centers), method = "ward.D2",
