@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
 # HO-341 - Metodos Quantitativos Aplicados a Economia
-# Analise multivariada - Agrupamento no R, com a classificacao ao final
+# Analise multivariada - Agrupamento no R
 # Estrutura demografica das Unidades da Federacao e das regioes intermediarias
 # (Censo 2022)
 #
@@ -28,14 +28,40 @@ source("code/instalar_pacotes.R")
 library(tidyverse)
 theme_set(theme_minimal(base_size = 9))
 
+# Uma so semente por script: rode de cima a baixo
+set.seed(2026)
+
 # Coleta no SIDRA e malhas do IBGE:
 # source("code/gera_censo_demografia.R")
 
 uf <- read_csv("data/censo_demografia_uf.csv")
 
+# ---- Estas unidades parecem formar grupos? ---------------------------------
+
+cp_uf <- uf |>
+  select(envelh, depend, urbana, log_dens, pretos_pardos, alfab) |>
+  prcomp(scale. = TRUE)
+
+escores_uf <- as_tibble(cp_uf$x[, 1:2]) |>
+  mutate(sigla = uf$sigla)
+setas_uf <- as_tibble(cp_uf$rotation[, 1:2]) |>
+  mutate(rotulo = c("Env.", "Dep.", "Urb.", "Dens.", "PPar.", "Alf."))
+
+graf_biplot_uf <- ggplot(escores_uf, aes(PC1, PC2)) +
+  geom_hline(yintercept = 0, colour = "grey85") +
+  geom_vline(xintercept = 0, colour = "grey85") +
+  geom_segment(data = setas_uf, aes(x = 0, y = 0, xend = 3 * PC1, yend = 3 * PC2),
+               colour = "#b85c38", arrow = arrow(length = unit(0.08, "cm"))) +
+  geom_text(data = setas_uf, aes(3.4 * PC1, 3.4 * PC2, label = rotulo),
+            colour = "#b85c38", size = 2.3) +
+  geom_text(aes(label = sigla), colour = "#1f3864", size = 2.3) +
+  labs(x = "Primeiro componente", y = "Segundo componente")
+
+graf_biplot_uf
+
 # ---- Variaveis de agrupamento e de perfil ---------------------------------
 
-# Decididas antes de rodar: o que define "parecido"
+# Decididas antes de rodar: o que define "similar"
 var_grupo <- c("envelh", "depend", "urbana",
             "log_dens", "pretos_pardos", "alfab")
 
@@ -97,11 +123,9 @@ grupo_ward <- cutree(hc_uf, k = 3)
 
 split(uf$sigla, grupo_ward)
 
-# ---- O inicio sorteado -----------------------------------------------------
+# ---- A inicializacao sorteada ----------------------------------------------
 
-set.seed(2026)
-
-# 200 execucoes, cada uma com um so inicio
+# 200 execucoes, cada uma com uma so inicializacao
 um_inicio <- replicate(200,
   kmeans(z_uf, centers = 3, nstart = 1)$tot.withinss)
 
@@ -115,24 +139,16 @@ sqd <- map_dbl(1:8, \(k)
 # Com um grupo, a SQD e a soma de quadrados total
 r2 <- 1 - sqd / sqd[1]
 
-# ---- A particao do k-medias ------------------------------------------------
+# ---- A particao do k-means ------------------------------------------------
 
-set.seed(2026)
 km_uf <- kmeans(z_uf, centers = 3, nstart = 50)
 
 comparacao <- table(ward = grupo_ward,
-                    kmedias = km_uf$cluster)
+                    kmeans = km_uf$cluster)
 
 comparacao
 
-# ---- Dois metodos, particoes proximas --------------------------------------
-
-# Unidades fora do grupo dominante da sua linha na tabela cruzada
-muda_grupo <- function(a, b) {
-  length(a) - sum(apply(table(a, b), 1, max))
-}
-
-# ---- Sementes do Ward no k-medias ------------------------------------------
+# ---- Sementes do Ward no k-means ------------------------------------------
 
 sementes <- aggregate(z_uf, by = list(grupo_ward), FUN = mean)[, -1]
 
@@ -140,24 +156,69 @@ km_sem <- kmeans(z_uf, centers = sementes)
 
 km_sem$iter
 km_sem$tot.withinss
-table(sementes = km_sem$cluster, inicios = km_uf$cluster)
+table(sementes = km_sem$cluster, sorteadas = km_uf$cluster)
 
-# ---- Variaveis acrescentadas a lista ---------------------------------------
+# ---- Ward e k-means na mesma figura ----------------------------------------
 
-mudam_com <- function(z_mais) {
-  km <- kmeans(z_mais, centers = 3, nstart = 50)
-  muda_grupo(km_uf$cluster, km$cluster)
+cp <- prcomp(z_uf)
+pc <- cp$x[, 1:2]
+n_uf <- nrow(pc)
+h_w <- hc_uf$height
+esc_h <- 1.1 * diff(range(pc[, 2])) / max(h_w)
+
+# Projecao obliqua: a base no plano dos componentes, a altura na vertical
+proj <- function(x, y, h = 0) tibble(X = x + 0.55 * y, Y = 0.45 * y + esc_h * h)
+
+# Cor do ramo: o grupo do k-means, ou divergencia quando o ramo tem mais de um
+cor_ramo <- function(m) {
+  g <- unique(km_uf$cluster[m])
+  if (length(g) == 1) paste0("U", g) else "divergência"
+}
+seg <- function(p0, h0, p1, h1, g) {
+  a <- proj(p0[1], p0[2], h0)
+  b <- proj(p1[1], p1[2], h1)
+  tibble(x = a$X, y = a$Y, xe = b$X, ye = b$Y, g = g)
 }
 
-# Variaveis de ruido, sem relacao com a pergunta
-set.seed(2026)
-mudam_ruido <- map_dbl(c(2, 6, 12), \(m) mean(replicate(30,
-  mudam_com(cbind(z_uf, matrix(rnorm(nrow(z_uf) * m), ncol = m))))))
+# Percorre as fusoes do Ward, da primeira para a ultima
+membros <- list(); pos <- list(); segs <- list()
+ramo <- function(i) {
+  if (i < 0) list(m = -i, p = pc[-i, ], h = 0)
+  else list(m = membros[[i]], p = pos[[i]], h = h_w[i])
+}
+for (i in seq_len(n_uf - 1)) {
+  a <- ramo(hc_uf$merge[i, 1])
+  b <- ramo(hc_uf$merge[i, 2])
+  m <- c(a$m, b$m)
+  membros[[i]] <- m
+  pos[[i]] <- colMeans(pc[m, , drop = FALSE])
+  h <- h_w[i]
+  segs[[i]] <- bind_rows(seg(a$p, a$h, a$p, h, cor_ramo(a$m)),
+                         seg(b$p, b$h, b$p, h, cor_ramo(b$m)),
+                         seg(a$p, h, b$p, h, cor_ramo(m)))
+}
+segs <- bind_rows(segs)
 
-# Cada variavel contada tres vezes
-set.seed(2026)
-mudam_tripla <- map_dbl(var_grupo, \(v)
-  mudam_com(cbind(z_uf, z_uf[, v], z_uf[, v])))
+folhas <- bind_cols(proj(pc[, 1], pc[, 2]), g = paste0("U", km_uf$cluster), sigla = rownames(pc))
+cent <- km_uf$centers %*% cp$rotation[, 1:2]
+cent_p <- bind_cols(proj(cent[, 1], cent[, 2]), g = paste0("U", rownames(cent)))
+lx <- range(pc[, 1]) + c(-0.4, 0.4)
+ly <- range(pc[, 2]) + c(-0.4, 0.4)
+base_plano <- bind_rows(proj(lx[1], ly[1]), proj(lx[2], ly[1]), proj(lx[2], ly[2]), proj(lx[1], ly[2]))
+
+graf_ward_km <- ggplot() +
+  geom_polygon(data = base_plano, aes(X, Y), fill = "grey93", colour = "grey75", linewidth = 0.2) +
+  geom_segment(data = segs, aes(x, y, xend = xe, yend = ye, colour = g), linewidth = 0.3) +
+  geom_point(data = folhas, aes(X, Y, colour = g), size = 0.7) +
+  geom_text(data = folhas, aes(X, Y, label = sigla, colour = g), size = 1.6, vjust = 1.5, show.legend = FALSE) +
+  geom_point(data = cent_p, aes(X, Y, colour = g), shape = 4, size = 2.2, stroke = 0.8, show.legend = FALSE) +
+  scale_colour_manual(values = c(U1 = "#1f3864", U2 = "#b85c38", U3 = "#8fb0d9", `divergência` = "grey60"),
+                      breaks = c("U1", "U2", "U3", "divergência"), name = NULL) +
+  coord_equal() +
+  theme_void() +
+  theme(legend.position = "right", legend.text = element_text(size = 6), plot.margin = margin(0, 14, 0, 0))
+
+graf_ward_km
 
 # ---- Agrupamento sem estrutura ---------------------------------------------
 
@@ -165,10 +226,11 @@ r2_km <- function(z) {
   km <- kmeans(z, centers = 3, nstart = 50)
   km$betweenss / km$totss
 }
+r2_obs <- r2_km(z_uf)
 
-# Embaralhar cada coluna desfaz a relacao entre as variaveis
-set.seed(2026)
-r2_emb <- replicate(50, r2_km(apply(z_uf, 2, sample)))
+# Embaralhar as colunas desfaz a relacao
+r2_emb <- replicate(50,
+  r2_km(apply(z_uf, 2, sample)))
 
 # ---- Centroides padronizados -----------------------------------------------
 
@@ -195,11 +257,14 @@ graf_renda_uf
 
 # ---- Validacao externa -----------------------------------------------------
 
-r2_renda <- function(g) summary(lm(uf$log_renda ~ factor(g)))$r.squared
-
-set.seed(2026)
-r2_renda_emb <- replicate(200,
-  r2_renda(kmeans(apply(z_uf, 2, sample), centers = 3, nstart = 10)$cluster))
+r2_renda <- function(g) {
+  summary(lm(uf$log_renda ~ factor(g)))$r.squared
+}
+r2_renda_obs <- r2_renda(uf$grupo)
+r2_renda_emb <- replicate(200, {
+  z_emb <- apply(z_uf, 2, sample)
+  r2_renda(kmeans(z_emb, 3, nstart = 10)$cluster)
+})
 
 # ---- Mapa dos grupos de UFs ------------------------------------------------
 
@@ -237,7 +302,6 @@ plot(hc_rgi, hang = -1, labels = FALSE)
 
 alturas_rgi <- rev(hc_rgi$height)
 
-set.seed(2026)
 sqd_rgi <- map_dbl(1:8, \(k)
   kmeans(z_rgi, centers = k, nstart = 50)$tot.withinss)
 r2_rgi <- 1 - sqd_rgi / sqd_rgi[1]
@@ -246,14 +310,13 @@ alturas_rgi[1:8]
 
 # ---- A particao das regioes intermediarias ---------------------------------
 
-set.seed(2026)
 km_rgi <- kmeans(z_rgi, centers = 5, nstart = 50)
 
 rgi <- rgi |>
   mutate(grupo = factor(paste0("R", km_rgi$cluster)))
 
 table(ward = cutree(hc_rgi, k = 5),
-      kmedias = rgi$grupo)
+      kmeans = rgi$grupo)
 
 # ---- Centroides dos grupos de regioes --------------------------------------
 
@@ -290,21 +353,6 @@ rgi_regiao <- table(rgi$regiao, rgi$grupo)
 
 rgi_regiao
 
-# ---- Validacao por metades -------------------------------------------------
-
-concorda_metades <- function(z) {
-  a <- sample(nrow(z), nrow(z) %/% 2)
-  km_a <- kmeans(z[a, ], centers = 5, nstart = 20)
-  km_b <- kmeans(z[-a, ], centers = 5, nstart = 20)
-  # Cada regiao de B vai ao centroide mais proximo de A
-  d_ab <- as.matrix(dist(rbind(km_a$centers, z[-a, ])))[-(1:5), 1:5]
-  100 * (1 - muda_grupo(km_b$cluster, max.col(-d_ab)) / nrow(d_ab))
-}
-
-set.seed(2026)
-val_real <- replicate(100, concorda_metades(z_rgi))
-val_emb <- replicate(100, concorda_metades(apply(z_rgi, 2, sample)))
-
 # ---- Das UFs as regioes intermediarias -------------------------------------
 
 rgi_por_uf <- rgi |>
@@ -315,118 +363,20 @@ rgi_por_uf <- rgi |>
 # ---- Atividade em sala -----------------------------------------------------
 
 # 1. Quatro grupos de UFs
-# set.seed(2026)
 # km_uf4 <- kmeans(z_uf, centers = ___, nstart = 50)
 # table(tres = uf$grupo, quatro = km_uf4$cluster)
 # 2. O rendimento entre as variaveis de agrupamento das regioes
 # z_rgi_r <- scale(rgi[, c(var_grupo, "___")])
-# set.seed(2026)
 # km_rgi_r <- kmeans(z_rgi_r, centers = 5, nstart = 50)
 # table(sem = rgi$grupo, com = km_rgi_r$cluster)
 # 3. So o Nordeste
 # ne <- rgi |> filter(regiao == "___")
 # z_ne <- scale(ne[, var_grupo])
-# set.seed(2026)
 # km_ne <- kmeans(z_ne, centers = 3, nstart = 50)
 # table(nacional = ne$grupo, nordeste = km_ne$cluster)
 
-# ---- Rotulo de baixo rendimento --------------------------------------------
-
-rgi <- rgi |>
-  mutate(baixo = if_else(log_renda <= quantile(log_renda, 1/3),
-                         "baixo", "outro"),
-         baixo = factor(baixo, levels = c("baixo", "outro")))
-
-count(rgi, baixo)
-
-# ---- Treino e teste --------------------------------------------------------
-
-set.seed(2026)
-ufs_teste <- sample(unique(rgi$uf), 7)
-treino <- rgi |> filter(!uf %in% ufs_teste)
-teste <- rgi |> filter(uf %in% ufs_teste)
-
-z_treino <- scale(treino[, var_grupo])
-z_teste <- scale(teste[, var_grupo],
-                 center = attr(z_treino, "scaled:center"),
-                 scale = attr(z_treino, "scaled:scale"))
-
-# ---- Numero de vizinhos ----------------------------------------------------
-
-vizinhos <- seq(1, 15, by = 2)
-
-set.seed(2026)
-acerto_cv <- map_dbl(vizinhos, \(k)
-  mean(class::knn.cv(z_treino, treino$baixo, k = k)
-       == treino$baixo))
-
-k_viz <- vizinhos[which.max(acerto_cv)]
-
-# ---- Matriz de confusao ----------------------------------------------------
-
-set.seed(2026)
-previsto <- class::knn(z_treino, z_teste, treino$baixo, k = k_viz)
-
-confusao <- table(real = teste$baixo, previsto = previsto)
-
-confusao
-
-# ---- Acerto, sensibilidade e especificidade --------------------------------
-
-medidas <- function(previsto, real) {
-  tibble(acerto = mean(previsto == real),
-         sensibilidade = mean(previsto[real == "baixo"] == "baixo"),
-         especificidade = mean(previsto[real == "outro"] == "outro"))
-}
-med_knn <- medidas(previsto, teste$baixo)
-
-# ---- Criterios de chance ---------------------------------------------------
-
-p_baixo <- mean(teste$baixo == "baixo")
-c_max <- max(p_baixo, 1 - p_baixo)
-c_pro <- p_baixo^2 + (1 - p_baixo)^2
-
-# ---- Regras mais simples ---------------------------------------------------
-
-set.seed(2026)
-uma_var <- map_dfr(var_grupo, \(v) {
-  z_tr <- scale(treino[v])
-  z_te <- scale(teste[v], center = attr(z_tr, "scaled:center"),
-                scale = attr(z_tr, "scaled:scale"))
-  medidas(class::knn(z_tr, z_te, treino$baixo, k = k_viz), teste$baixo) |>
-    mutate(variavel = v)
-})
-
-so_regiao <- if_else(teste$regiao %in% c("Norte", "Nordeste"),
-                     "baixo", "outro")
-med_regiao <- medidas(so_regiao, teste$baixo)
-
-# ---- Rotulos embaralhados --------------------------------------------------
-
-set.seed(2026)
-acerto_emb <- replicate(200, {
-  y <- sample(treino$baixo)
-  mean(class::knn(z_treino, z_teste, y, k = k_viz)
-       == teste$baixo)
-})
-
-summary(acerto_emb)
-
-# ---- Grande regiao fora do treino ------------------------------------------
-
-fora <- map_dfr(unique(rgi$regiao), \(g) {
-  a <- rgi |> filter(regiao != g)
-  b <- rgi |> filter(regiao == g)
-  z_a <- scale(a[, var_grupo])
-  z_b <- scale(b[, var_grupo], center = attr(z_a, "scaled:center"),
-               scale = attr(z_a, "scaled:scale"))
-  medidas(class::knn(z_a, z_b, a$baixo, k = k_viz), b$baixo) |>
-    mutate(regiao = g, n_regioes = nrow(b), baixas = sum(b$baixo == "baixo"))
-})
-
 # ---- Silhueta media por numero de grupos -----------------------------------
 
-set.seed(2026)
 sil_media <- map_dbl(2:6, \(k) {
   g <- kmeans(z_uf, centers = k, nstart = 50)$cluster
   mean(cluster::silhouette(g, d_uf)[, "sil_width"])
@@ -441,7 +391,6 @@ sil_rgi <- map_dbl(2:6, \(k) {
 
 mun <- read_csv("data/censo_demografia_mun.csv")
 z_mun <- scale(mun[, var_grupo])
-set.seed(2026)
 pre <- kmeans(z_mun, centers = 100, nstart = 10, iter.max = 50)
 hc_mun <- hclust(dist(pre$centers), method = "ward.D2",
                  members = pre$size)    # peso de cada centroide
