@@ -220,18 +220,6 @@ graf_ward_km <- ggplot() +
 
 graf_ward_km
 
-# ---- Agrupamento sem estrutura ---------------------------------------------
-
-r2_km <- function(z) {
-  km <- kmeans(z, centers = 3, nstart = 50)
-  km$betweenss / km$totss
-}
-r2_obs <- r2_km(z_uf)
-
-# Embaralhar as colunas desfaz a relacao
-r2_emb <- replicate(50,
-  r2_km(apply(z_uf, 2, sample)))
-
 # ---- Centroides padronizados -----------------------------------------------
 
 round(km_uf$centers, 2)
@@ -254,17 +242,6 @@ graf_renda_uf <- uf |>
        y = "Rendimento mediano per capita (R$)")
 
 graf_renda_uf
-
-# ---- Validacao externa -----------------------------------------------------
-
-r2_renda <- function(g) {
-  summary(lm(uf$log_renda ~ factor(g)))$r.squared
-}
-r2_renda_obs <- r2_renda(uf$grupo)
-r2_renda_emb <- replicate(200, {
-  z_emb <- apply(z_uf, 2, sample)
-  r2_renda(kmeans(z_emb, 3, nstart = 10)$cluster)
-})
 
 # ---- Mapa dos grupos de UFs ------------------------------------------------
 
@@ -339,6 +316,15 @@ graf_mapa_rgi <- ggplot(malha_rgi, aes(fill = grupo)) +
 
 graf_mapa_rgi
 
+# ---- Regioes intermediarias de Minas Gerais --------------------------------
+
+graf_mapa_mg <- malha_rgi |>
+  filter(uf == "MG") |>
+  ggplot(aes(fill = grupo)) +
+  geom_sf(colour = "white")
+
+graf_mapa_mg
+
 # ---- Rendimento dos grupos de regioes --------------------------------------
 
 graf_renda_rgi <- rgi |>
@@ -349,9 +335,12 @@ graf_renda_rgi
 
 # ---- Grupos de regioes e grandes regioes -----------------------------------
 
-rgi_regiao <- table(rgi$regiao, rgi$grupo)
+graf_rgi_regiao <- rgi |>
+  count(regiao, grupo) |>
+  ggplot(aes(n, regiao, fill = grupo)) +
+  geom_col(position = "fill")
 
-rgi_regiao
+graf_rgi_regiao
 
 # ---- Das UFs as regioes intermediarias -------------------------------------
 
