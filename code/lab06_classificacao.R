@@ -80,11 +80,10 @@ medidas <- function(previsto, real) {
 }
 med_knn <- medidas(previsto, teste$baixo)
 
-# ---- Criterios de chance ---------------------------------------------------
+# ---- Criterio de Hair et al. -----------------------------------------------
 
 p_baixo <- mean(teste$baixo == "baixo")
-c_max <- max(p_baixo, 1 - p_baixo)
-c_pro <- p_baixo^2 + (1 - p_baixo)^2
+acaso <- p_baixo^2 + (1 - p_baixo)^2
 
 # ---- Regras mais simples ---------------------------------------------------
 
