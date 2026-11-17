@@ -22,12 +22,14 @@ if (!dir.exists("data")) {
 # Instala os pacotes da disciplina que faltarem (so na primeira vez demora)
 source("code/instalar_pacotes.R")
 
+# Abra code/lab06_classificacao.R: ele não depende
+# do script de agrupamento
 library(tidyverse)
 theme_set(theme_minimal(base_size = 9))
 
 rgi <- read_csv("data/censo_demografia_rgi.csv")
 var_grupo <- c("envelh", "depend", "urbana",
-            "log_dens", "pretos_pardos", "alfab")
+               "log_dens", "pretos_pardos", "alfab")
 
 # ---- Rotulo de baixo rendimento --------------------------------------------
 
