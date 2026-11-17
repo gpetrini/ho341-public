@@ -25,9 +25,6 @@ source("code/instalar_pacotes.R")
 library(tidyverse)
 theme_set(theme_minimal(base_size = 9))
 
-# Uma so semente por script: rode de cima a baixo
-set.seed(2026)
-
 rgi <- read_csv("data/censo_demografia_rgi.csv")
 var_grupo <- c("envelh", "depend", "urbana",
             "log_dens", "pretos_pardos", "alfab")
@@ -35,16 +32,19 @@ var_grupo <- c("envelh", "depend", "urbana",
 # ---- Rotulo de baixo rendimento --------------------------------------------
 
 corte <- quantile(rgi$log_renda, 1/3)
+niveis <- c("baixo", "médio ou alto")
 rgi <- rgi |>
   mutate(baixo = if_else(log_renda <= corte,
-                         "baixo", "outro"),
-         baixo = factor(baixo,
-                        levels = c("baixo", "outro")))
+                         niveis[1], niveis[2]),
+         baixo = factor(baixo, levels = niveis))
 
 count(rgi, baixo)
 
 # ---- Treino e teste --------------------------------------------------------
 
+# Uma so semente por script: troque o valor
+# para sortear outras UFs para o teste
+set.seed(2026)
 ufs_teste <- sample(unique(rgi$uf), 7)
 treino <- rgi |> filter(!uf %in% ufs_teste)
 teste <- rgi |> filter(uf %in% ufs_teste)
@@ -75,7 +75,8 @@ confusao
 medidas <- function(previsto, real) {
   tibble(acerto = mean(previsto == real),
          sensibilidade = mean(previsto[real == "baixo"] == "baixo"),
-         especificidade = mean(previsto[real == "outro"] == "outro"))
+         especificidade = mean(previsto[real == "médio ou alto"]
+                               == "médio ou alto"))
 }
 med_knn <- medidas(previsto, teste$baixo)
 
@@ -96,7 +97,7 @@ uma_var <- map_dfr(var_grupo, \(v) {
 })
 
 so_regiao <- if_else(teste$regiao %in% c("Norte", "Nordeste"),
-                     "baixo", "outro")
+                     "baixo", "médio ou alto")
 med_regiao <- medidas(so_regiao, teste$baixo)
 
 # ---- Rotulos embaralhados --------------------------------------------------
@@ -117,8 +118,12 @@ fora <- map_dfr(unique(rgi$regiao), \(g) {
   z_a <- scale(a[, var_grupo])
   z_b <- scale(b[, var_grupo], center = attr(z_a, "scaled:center"),
                scale = attr(z_a, "scaled:scale"))
-  medidas(class::knn(z_a, z_b, a$baixo, k = k_viz), b$baixo) |>
-    mutate(regiao = g, n_regioes = nrow(b), baixas = sum(b$baixo == "baixo"))
+  p <- class::knn(z_a, z_b, a$baixo, k = k_viz)
+  tibble(regiao = g, n_reg = nrow(b),
+         baixas = sum(b$baixo == "baixo"),
+         encontradas = sum(p == "baixo" & b$baixo == "baixo"),
+         altas = sum(b$baixo == "médio ou alto"),
+         reconhecidas = sum(p == "médio ou alto" & b$baixo == "médio ou alto"))
 })
 
 # ---- Atividade em sala -----------------------------------------------------
@@ -126,6 +131,6 @@ fora <- map_dfr(unique(rgi$regiao), \(g) {
 # 1. Outro numero de vizinhos
 # previsto_k <- class::knn(z_treino, z_teste, treino$baixo, k = ___)
 # medidas(previsto_k, teste$baixo)
-# 2. Outras UFs no teste: troque o valor de set.seed() no topo
-#    do script e rode-o inteiro; depois, veja de novo
+# 2. Outras UFs no teste: troque o valor de set.seed() no trecho
+#    "Treino e teste" e rode dali ate o fim; depois, veja de novo
 # med_knn
